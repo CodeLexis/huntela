@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.4' 
+VERSION = '0.0.5' 
 DESCRIPTION = "Find what you're looking for in a flash with Huntela - the ultimate search tool for Python."
 LONG_DESCRIPTION = """
 # Huntela
@@ -10,10 +10,8 @@ Huntela makes searching in Python very simple.
 ```python
 >>> import huntela
 >>> huntela.simple_search("app", ["app", "apple", "hello", "world"])
-[
-    {'index': 0, 'value': 'app', 'confidence': 1},
-    {'index': 1, 'value': 'apple', 'confidence': 0.6}
-]
+[{'index': 0, 'value': 'app', 'confidence': 1},
+{'index': 1, 'value': 'apple', 'confidence': 0.6}]
 ```
 With a variety of powerful algorithms to choose from, finding what you're looking for has never been easier.
 
