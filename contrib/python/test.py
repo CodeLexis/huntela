@@ -10,7 +10,14 @@ class SimpleSearch(unittest.TestCase):
 
     def test_string_search(self):
         results = simple_search(term='a', items=['a', 'b', 'c'])
-        self.assertEqual(len(results), 1, 'Term returns at least one matching result')
+        self.assertEqual(len(results), 1, 'Search does not return exactly one matching result for single character strings')
+
+    def test_string_search_fuzzy(self):
+        results = simple_search(term='apple', items=['pap', 'app', 'le', 'applet'])
+        self.assertEqual(len(results), 3, 'Search does not return exactly one matching result for multi-character strings')
+        self.assertEqual(results[0]['confidence'], 0.6, 'Search did not return the expected confidence rating')
+        self.assertEqual(results[1]['confidence'], 0.6, 'Search did not return the expected confidence rating')
+        self.assertEqual(results[2]['confidence'], 0.8, 'Search did not return the expected confidence rating')
 
     def test_result_structure(self):
         results = simple_search(term='a', items=['a', 'b', 'c'])
