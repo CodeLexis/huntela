@@ -1,11 +1,11 @@
 from collections import Counter
 import itertools
-from typing import List
+from typing import Dict, List, Set, Tuple, Union
 
 from .constants import SUPPORTED_ITEM_TYPES
 
 
-def default_checker(item_1: SUPPORTED_ITEM_TYPES, item_2: SUPPORTED_ITEM_TYPES):
+def default_checker(item_1: SUPPORTED_ITEM_TYPES, item_2: SUPPORTED_ITEM_TYPES) -> Tuple[bool, Union[float, int]]:
     if item_1 == item_2:
         return (True, 1)
 
@@ -31,7 +31,7 @@ def default_checker(item_1: SUPPORTED_ITEM_TYPES, item_2: SUPPORTED_ITEM_TYPES):
     return (False, None)
 
 
-def char_count(items: List[str]):
+def char_count(items: List[str]) -> Tuple[List[Dict[str, int]], Set[str]]:
     """
     Returns a dictionary mapping each character in a string to the number of times it appears.
 

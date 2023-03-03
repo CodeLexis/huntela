@@ -9,7 +9,18 @@ def binary_search(term: int, items: List[int]):
     raise NotImplementedError
 
 
-def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES]):
+def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES]) -> List[Result]:
+    f"""
+    Searches a list of items for a given search term.
+
+    Args:
+        term ({SUPPORTED_ITEM_TYPES}): The search term to match against items in the list.
+        items ({List[SUPPORTED_ITEM_TYPES]}): The list of items to search.
+
+    Returns:
+        {List[Result]}: A list of Result objects representing the search results.
+    """
+
     results = []
 
     for index in range(len(items)):
@@ -21,6 +32,8 @@ def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES])
         match = default_checker(item, term)
         if match[0]:
             results.append(Result(index=index, value=item, confidence=match[1]))
+
+    results.sort(key=lambda x: x['confidence'])
 
     return results
 
