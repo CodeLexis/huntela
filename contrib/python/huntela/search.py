@@ -2,7 +2,7 @@ from typing import List
 
 from .constants import SUPPORTED_ITEM_TYPES
 from .models import Result
-from .utils import default_checker
+from .utils import cleanup_string, default_checker
 
 
 def binary_search(term: int, items: List[int]):
@@ -14,6 +14,10 @@ def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES])
 
     for index in range(len(items)):
         item = items[index]
+
+        if type(item) is str:
+            item = cleanup_string(item)
+
         match = default_checker(item, term)
         if match[0]:
             results.append(Result(index=index, value=item, confidence=match[1]))

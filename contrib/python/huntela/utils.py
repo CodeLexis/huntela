@@ -54,3 +54,17 @@ def char_count(items: List[str]):
         results.append(char_dict)
 
     return (results, combined_chars)
+
+
+def cleanup_string(s: str) -> str:
+    """
+    Cleans up a string by removing any leading or trailing white space characters.
+    
+    Args:
+        s (str): The string to be cleaned up.
+        
+    Returns:
+        str: A new string with no leading or trailing white space characters.
+    """
+
+    return s.strip()
