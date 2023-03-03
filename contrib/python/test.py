@@ -27,8 +27,11 @@ class SimpleSearch(unittest.TestCase):
         results = simple_search(term='a', items=['a', 'b', 'c'])
         self.assertEqual(results[0]['index'], 0)
         self.assertEqual(results[0]['value'], 'a')
+        self.assertEqual(results[0]['confidence'], 1)
+
         self.assertNotEqual(results[0]['index'], 1)
         self.assertNotEqual(results[0]['value'], 'b')
+        self.assertNotEqual(results[0]['confidence'], 0)
 
 
 if __name__ == '__main__':
