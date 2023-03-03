@@ -1,1 +1,1 @@
-from search import simple_search
+from .search import simple_search

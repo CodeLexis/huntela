@@ -1,6 +1,6 @@
 from typing import List, Union
 
-from models import Result
+from .models import Result
 
 
 def simple_search(term: str, items: List[str]):
@@ -10,7 +10,7 @@ def simple_search(term: str, items: List[str]):
         item = items[index]
         if item == term:
             results.append(
-                Result(index=index, item=item)
+                Result(index=index, value=item)
             )
 
     return results
