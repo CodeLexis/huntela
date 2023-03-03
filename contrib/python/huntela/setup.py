@@ -25,7 +25,7 @@ setup(
     packages=find_packages(),
     install_requires=[], # add any additional packages that 
     # needs to be installed along with your package. Eg: 'caer'
-
+    python_requires=">=3.9, <4",
     keywords=['python', 'first package'],
     classifiers= [
         "Development Status :: 4 - Beta",

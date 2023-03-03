@@ -1,6 +1,24 @@
 import unittest
 
-from huntela import simple_search
+from huntela import binary_search, simple_search
+
+
+class BinarySearch(unittest.TestCase):
+    def test_missing_term(self):
+        result = binary_search(term=5, items=[])
+        self.assertIsNone(result, 'Missing term does not return empty results')
+
+    def test_integer_search(self):
+        result = binary_search(term=5, items=[1, 5, 10, 15, 20])
+        self.assertEqual(result['confidence'], 1)
+        self.assertEqual(result['index'], 1)
+        self.assertEqual(result['value'], 5)
+
+    def test_string_search(self):
+        result = binary_search(term='a', items=['a', 'b', 'c'])
+        self.assertEqual(result['confidence'], 1)
+        self.assertEqual(result['index'], 0)
+        self.assertEqual(result['value'], 'a')
 
 
 class SimpleSearch(unittest.TestCase):
@@ -11,6 +29,10 @@ class SimpleSearch(unittest.TestCase):
     def test_string_search(self):
         results = simple_search(term='a', items=['a', 'b', 'c'])
         self.assertEqual(len(results), 1, 'Search does not return exactly one matching result for single character strings')
+
+    def test_integer_search(self):
+        results = simple_search(term=2, items=[1, 2, 3])
+        self.assertEqual(len(results), 1, 'Search does not return exactly one matching result for integers')
 
     def test_string_search_fuzzy(self):
         results = simple_search(term='apple', items=['pap', 'app', 'le', 'applet'])
@@ -25,13 +47,13 @@ class SimpleSearch(unittest.TestCase):
 
     def test_result_content(self):
         results = simple_search(term='a', items=['a', 'b', 'c'])
+        self.assertEqual(results[0]['confidence'], 1)
         self.assertEqual(results[0]['index'], 0)
         self.assertEqual(results[0]['value'], 'a')
-        self.assertEqual(results[0]['confidence'], 1)
 
+        self.assertNotEqual(results[0]['confidence'], 0)
         self.assertNotEqual(results[0]['index'], 1)
         self.assertNotEqual(results[0]['value'], 'b')
-        self.assertNotEqual(results[0]['confidence'], 0)
 
 
 if __name__ == '__main__':
