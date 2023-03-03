@@ -1,5 +1,5 @@
-import itertools
 from collections import Counter
+import itertools
 
 from .constants import SUPPORTED_ITEM_TYPES
 
