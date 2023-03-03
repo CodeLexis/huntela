@@ -1,6 +1,6 @@
 import unittest
 
-from shadowsearch import simple_search
+from huntela import simple_search
 
 
 class SimpleSearch(unittest.TestCase):

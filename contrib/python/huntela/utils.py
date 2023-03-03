@@ -1,5 +1,6 @@
 from collections import Counter
 import itertools
+from typing import List
 
 from .constants import SUPPORTED_ITEM_TYPES
 
@@ -9,22 +10,14 @@ def default_checker(item_1: SUPPORTED_ITEM_TYPES, item_2: SUPPORTED_ITEM_TYPES):
         return (True, 1)
 
     if type(item_1) is str and type(item_2) is str and (len(item_1) > 1 or len(item_2) > 1):
-        item_1_char_count = char_count(item_1)
-        item_2_char_count = char_count(item_2)
-
-        combined_chars = set()
+        char_counts, combined_chars = char_count([item_1, item_2])
 
         unconsumed_chars = 0
         total_chars = 0
 
-        for char in item_1_char_count:
-            combined_chars.add(char)
-        for char in item_2_char_count:
-            combined_chars.add(char)
-
         for char in combined_chars:
-            count_in_item_1 = item_1_char_count[char] if char in item_1_char_count else 0
-            count_in_item_2 = item_2_char_count[char] if char in item_2_char_count else 0
+            count_in_item_1 = char_counts[0][char] if char in char_counts[0] else 0
+            count_in_item_2 = char_counts[1][char] if char in char_counts[1] else 0
 
             combined_count = count_in_item_1 + count_in_item_2
 
@@ -38,7 +31,7 @@ def default_checker(item_1: SUPPORTED_ITEM_TYPES, item_2: SUPPORTED_ITEM_TYPES):
     return (False, None)
 
 
-def char_count(s):
+def char_count(items: List[str]):
     """
     Returns a dictionary mapping each character in a string to the number of times it appears.
 
@@ -49,8 +42,15 @@ def char_count(s):
         dict: Dictionary mapping each character to the number of times it appears.
     """
 
-    char_dict = {}
-    for char, count in Counter(itertools.chain.from_iterable(s)).items():
-        char_dict[char] = count
+    results = []
+    combined_chars = set()
 
-    return char_dict
+    for item in items:
+        char_dict = {}
+        for char, count in Counter(itertools.chain.from_iterable(item)).items():
+            char_dict[char] = count
+            combined_chars.add(char)
+
+        results.append(char_dict)
+
+    return (results, combined_chars)
