@@ -7,7 +7,7 @@ LONG_DESCRIPTION = "Huntela is the ultimate search tool for Python. With a varie
 # Setting up
 setup(
     # the name must match the folder name 'verysimplemodule'
-    name="shadowsearch", 
+    name="huntela", 
     version=VERSION,
     author="Tomisin Abiodun",
     author_email="decave.12357@gmail.com",
