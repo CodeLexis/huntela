@@ -8,8 +8,8 @@ readme_path = os.path.join(parent_dir, "README.md")
 with open(readme_path, "rt") as f:
     readme = f.read()
 
-VERSION = '0.0.7' 
-DESCRIPTION = "Find what you're looking for in a flash with Huntela - the ultimate search tool for Python."
+VERSION = '0.0.10' 
+DESCRIPTION = "Find what you're looking for in a flash with Huntela."
 LONG_DESCRIPTION = readme
 
 # Setting up
@@ -21,17 +21,31 @@ setup(
     author_email="decave.12357@gmail.com",
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
+    long_description_content_type="text/markdown",
     packages=find_packages(),
     install_requires=[], # add any additional packages that 
     # needs to be installed along with your package. Eg: 'caer'
 
     keywords=['python', 'first package'],
     classifiers= [
-        "Development Status :: 3 - Alpha",
-        "Intended Audience :: Education",
-        "Programming Language :: Python :: 2",
+        "Development Status :: 4 - Beta",
+        "Environment :: Console",
+        "Environment :: Web Environment",
+        "Intended Audience :: Developers",
+        "Natural Language :: English",
+        "Programming Language :: Python",
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: Microsoft :: Windows",
+        "Operating System :: POSIX :: Linux",
+        "Topic :: Software Development :: Libraries"
     ]
 )
