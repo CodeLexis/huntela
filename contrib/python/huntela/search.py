@@ -76,7 +76,7 @@ def search_for_least_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES]
     counts = Counter(items)
     least_frequent = [
         Result(confidence=1, value=item, index=None)
-        for item, count in counts.most_common()[-size:]
+        for item, _ in counts.most_common()[-size:]
     ]
     return least_frequent[::-1]
 
