@@ -10,6 +10,12 @@ def binary_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES])
     """
     Performs a binary search on a list of integers to find a target value.
 
+    Examples:
+        >>> huntela.binary_search(term='a', items=['a', 'b', 'c'])
+        {'confidence': 1, 'index': 0, 'value': 'a'}
+        >>> huntela.binary_search(term=5, items=[1, 5, 10, 15])
+        {'confidence': 1, 'index': 1, 'value': 5}
+
     Args:
         term: The target integer to search for.
         items: The list of integers to search through.
@@ -33,12 +39,19 @@ def binary_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES])
 
 
 def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES]) -> List[Result]:
-    f"""
+    """
     Searches a list of items for a given search term.
 
+    Examples:
+        >>> huntela.simple_search("app", ["app", "apple", "hello", "world"])
+        [
+            {{'confidence': 1, 'index': 0, 'value': 'app'}},
+            {{'confidence': 0.6, 'index': 1, 'value': 'apple'}}
+        ]
+
     Args:
-        term ({SUPPORTED_ITEM_TYPES}): The search term to match against items in the list.
-        items ({List[SUPPORTED_ITEM_TYPES]}): The list of items to search.
+        term (SUPPORTED_ITEM_TYPES): The search term to match against items in the list.
+        items (List[SUPPORTED_ITEM_TYPES]): The list of items to search.
 
     Returns:
         {List[Result]}: A list of Result objects representing the search results.
@@ -62,15 +75,15 @@ def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES])
 
 
 def search_for_least_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES]):
-    f"""
+    """
     Finds the k least frequent item(s) in a list.
 
     Args:
         size (int): The number of least frequent items to return.
-        items ({List[SUPPORTED_ITEM_TYPES]}): A list of items.
+        items (List[SUPPORTED_ITEM_TYPES]): A list of items.
 
     Returns:
-        A list of the  least frequent item(s).
+        A list of the least frequent item(s).
     """
 
     counts = Counter(items)

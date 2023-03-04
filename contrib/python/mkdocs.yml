@@ -1,0 +1,15 @@
+site_name: Huntela
+
+theme:
+  name: "material"
+
+plugins: 
+  - mkdocstrings
+
+nav:
+  - index.md
+  - reference.md
+  # - tutorials.md
+  # - How-To Guides: how-to-guides.md
+  # - reference.md
+  # - explanation.md
