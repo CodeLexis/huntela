@@ -6,6 +6,20 @@ from .constants import SUPPORTED_ITEM_TYPES
 
 
 def default_checker(item_1: SUPPORTED_ITEM_TYPES, item_2: SUPPORTED_ITEM_TYPES) -> Tuple[bool, Union[float, int]]:
+    f"""
+    Check if two items match, and return a tuple with two values. The first value is a boolean indicating
+    whether the items match or not. The second value is a float or an integer, representing a percentage match between 
+    the items if they are strings and have a match percentage of more than 50%, or None otherwise.
+    
+    Args:
+    - item_1 ({SUPPORTED_ITEM_TYPES}): An object of a supported type
+    - item_2 ({SUPPORTED_ITEM_TYPES}): An object of a supported type
+    
+    Returns:
+    A tuple containing a boolean indicating if the items match, and a float or integer percentage match if the items are
+    strings and have a match percentage of more than 50%, or None otherwise.
+    """
+
     if item_1 == item_2:
         return (True, 1)
 
