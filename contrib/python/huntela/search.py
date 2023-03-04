@@ -1,3 +1,4 @@
+from collections import Counter
 from typing import List, Optional
 
 from .constants import SUPPORTED_ITEM_TYPES
@@ -61,7 +62,23 @@ def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES])
 
 
 def search_for_least_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES]):
-    raise NotImplementedError
+    f"""
+    Finds the k least frequent item(s) in a list.
+
+    Args:
+        size (int): The number of least frequent items to return.
+        items ({List[SUPPORTED_ITEM_TYPES]}): A list of items.
+
+    Returns:
+        A list of the  least frequent item(s).
+    """
+
+    counts = Counter(items)
+    least_frequent = [
+        Result(confidence=1, value=item, index=None)
+        for item, count in counts.most_common()[-size:]
+    ]
+    return least_frequent[::-1]
 
 
 def search_for_most_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES]):

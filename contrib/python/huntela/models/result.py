@@ -1,7 +1,7 @@
-from typing import TypedDict, Union
+from typing import Optional, TypedDict, Union
 
 
 class Result(TypedDict):
     confidence: Union[int, float]
-    index: int
+    index: Optional[int]
     value: str

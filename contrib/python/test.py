@@ -1,9 +1,9 @@
 import unittest
 
-from huntela import binary_search, simple_search
+from huntela import binary_search, search_for_least_frequent_items, simple_search
 
 
-class BinarySearch(unittest.TestCase):
+class BinarySearchTest(unittest.TestCase):
     def test_missing_term(self):
         result = binary_search(term=5, items=[])
         self.assertIsNone(result, 'Missing term does not return empty results')
@@ -21,7 +21,7 @@ class BinarySearch(unittest.TestCase):
         self.assertEqual(result['value'], 'a')
 
 
-class SimpleSearch(unittest.TestCase):
+class SimpleSearchTest(unittest.TestCase):
     def test_missing_term(self):
         results = simple_search(term='a', items=[])
         self.assertEqual(len(results), 0, 'Missing term does not return empty results')
@@ -54,6 +54,16 @@ class SimpleSearch(unittest.TestCase):
         self.assertNotEqual(results[0]['confidence'], 0)
         self.assertNotEqual(results[0]['index'], 1)
         self.assertNotEqual(results[0]['value'], 'b')
+
+
+class LeastFrequentElementsSearchTest(unittest.TestCase):
+    def test_one(self):
+        results = search_for_least_frequent_items(1, [1, 2, 1, 5, 1, 5])
+        self.assertEqual(len(results), 1)
+
+    def test_two(self):
+        results = search_for_least_frequent_items(2, [1, 2, 1, 5, 1, 5])
+        self.assertEqual(len(results), 2)
 
 
 if __name__ == '__main__':
