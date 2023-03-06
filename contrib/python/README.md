@@ -3,10 +3,11 @@
 
 ```python
 >>> import huntela
->>> huntela.simple_search(term='app', items=['app', 'apple', 'hello', 'world'])
+>>>
+>>> huntela.simple_search(term='app', items=['app', 'paper', 'hello', 'world'])
 [
     {'confidence': 1, 'index': 0, 'value': 'app'},
-    {'confidence': 0.6, 'index': 1, 'value': 'apple'}
+    {'confidence': 0.6, 'index': 1, 'value': 'paper'}
 ]
 >>>
 >>> huntela.binary_search(term='a', items=['a', 'b', 'c'])
