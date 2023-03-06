@@ -12,6 +12,8 @@
 {'confidence': 1, 'index': 0, 'value': 'a'}
 >>> huntela.binary_search(term='a', items=['a', 'b', 'c'])
 {'confidence': 1, 'index': 0, 'value': 'a'}
+>>> huntela.search_for_least_frequent_items(size=1, ['a', 'b', 'a', 'e', 'a', 'e'])
+{'confidence': 1, 'index': None, 'value': 'b'}
 ```
 
 With a variety of algorithms to choose from, finding what you're looking for has never been easier.
