@@ -8,12 +8,20 @@
     {'confidence': 1, 'index': 0, 'value': 'app'},
     {'confidence': 0.6, 'index': 1, 'value': 'apple'}
 ]
+>>>
 >>> huntela.binary_search(term='a', items=['a', 'b', 'c'])
 {'confidence': 1, 'index': 0, 'value': 'a'}
+>>>
 >>> huntela.search_for_least_frequent_items(size=1, ['a', 'b', 'a', 'e', 'a', 'e'])
-[{'confidence': 1, 'index': [1], 'value': 'b'}]
+[
+    {'confidence': 1, 'index': [1], 'value': 'b'}
+]
+>>>
 >>> huntela.search_for_most_frequent_items(size=2, ['a', 'b', 'a', 'e', 'a', 'e'])
-[{'confidence': 1, 'value': 'a', 'index': [0, 2, 4]}, {'confidence': 1, 'value': 'e', 'index': [3, 5]}]
+[
+    {'confidence': 1, 'value': 'a', 'index': [0, 2, 4]},
+    {'confidence': 1, 'value': 'e', 'index': [3, 5]}
+]
 ```
 
 With a variety of algorithms to choose from, finding what you're looking for has never been easier.
@@ -30,6 +38,6 @@ Whether you're a data scientist, engineer, or  developer, Huntela will help you 
 
 Huntela is available on PyPi and it can be installed using `pip`
 
-```batch
+```bash
 python -m pip install huntela
 ```
