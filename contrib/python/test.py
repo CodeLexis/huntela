@@ -1,6 +1,11 @@
 import unittest
 
-from huntela import binary_search, search_for_least_frequent_items, simple_search
+from huntela import (
+    binary_search,
+    search_for_least_frequent_items,
+    search_for_most_frequent_items,
+    simple_search
+)
 
 
 class BinarySearchTest(unittest.TestCase):
@@ -58,12 +63,47 @@ class SimpleSearchTest(unittest.TestCase):
 
 class LeastFrequentElementsSearchTest(unittest.TestCase):
     def test_one(self):
-        results = search_for_least_frequent_items(1, [1, 2, 1, 5, 1, 5])
+        results = search_for_least_frequent_items(1, ['a', 'b', 'a', 'e', 'a', 'e'])
         self.assertEqual(len(results), 1)
-
+        self.assertIsInstance(results[0], dict)
+        self.assertEqual(results[0]['value'], 'b')
+        self.assertEqual(results[0]['index'], [1])
+    
     def test_two(self):
-        results = search_for_least_frequent_items(2, [1, 2, 1, 5, 1, 5])
+        results = search_for_least_frequent_items(2, ['a', 'b', 'a', 'e', 'a', 'e'])
         self.assertEqual(len(results), 2)
+        
+        self.assertIsInstance(results[0], dict)
+        self.assertIsInstance(results[1], dict)
+
+        self.assertEqual(results[0]['value'], 'b')
+        self.assertEqual(results[0]['index'], [1])
+
+        self.assertEqual(results[1]['value'], 'e')
+        self.assertEqual(results[1]['index'], [3, 5])
+
+
+class MostFrequentElementsSearchTest(unittest.TestCase):
+    def test_one(self):
+        results = search_for_most_frequent_items(1, ['a', 'b', 'a', 'e', 'a', 'e'])
+        self.assertEqual(len(results), 1)
+        
+        self.assertIsInstance(results[0], dict)
+
+        self.assertEqual(results[0]['value'], 'a')
+        self.assertEqual(results[0]['index'], [0, 2, 4])
+    
+    def test_two(self):
+        results = search_for_most_frequent_items(2, ['a', 'b', 'a', 'e', 'a', 'e'])
+        self.assertEqual(len(results), 2)
+        
+        self.assertIsInstance(results[0], dict)
+        self.assertIsInstance(results[1], dict)
+
+        self.assertEqual(results[0]['value'], 'a')
+        self.assertEqual(results[0]['index'], [0, 2, 4])
+        self.assertEqual(results[1]['value'], 'e')
+        self.assertEqual(results[1]['index'], [3, 5])
 
 
 if __name__ == '__main__':

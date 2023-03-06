@@ -10,4 +10,9 @@ The module contains the following functions:
 """
 
 
-from .search import binary_search, search_for_least_frequent_items, simple_search
+from .search import (
+  binary_search,
+  search_for_least_frequent_items,
+  search_for_most_frequent_items,
+  simple_search
+)

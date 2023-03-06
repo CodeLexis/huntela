@@ -3,7 +3,7 @@ from typing import List, Optional
 
 from .constants import SUPPORTED_ITEM_TYPES
 from .models import Result
-from .utils import cleanup_string, default_checker
+from .utils import cleanup_string, default_checker, heap_sort
 
 
 def binary_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES]) -> Optional[Result]:
@@ -86,16 +86,30 @@ def search_for_least_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES]
         A list of the least frequent item(s).
     """
 
-    counts = Counter(items)
-    least_frequent = [
-        Result(confidence=1, value=item, index=None)
-        for item, _ in counts.most_common()[-size:]
-    ]
-    return least_frequent[::-1]
+    results = []
+    for item, (frequency, indices) in heap_sort(size, items, 'ASC'):
+        results.append(Result(confidence=1, value=item, index=indices))
+        
+    return results
 
 
 def search_for_most_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES]):
-    raise NotImplementedError
+    """
+    Finds the k most frequent item(s) in a list.
+
+    Args:
+        size (int): The number of most frequent items to return.
+        items (List[SUPPORTED_ITEM_TYPES]): A list of items.
+
+    Returns:
+        A list of the most frequent item(s).
+    """
+
+    results = []
+    for item, (frequency, indices) in heap_sort(size, items, 'DESC'):
+        results.append(Result(confidence=1, value=item, index=indices))
+        
+    return results
 
 
 def search_csv_file(filename: str, column: str, value: str):

@@ -1,6 +1,6 @@
 from collections import Counter
 import itertools
-from typing import Dict, List, Set, Tuple, Union
+from typing import Dict, List, Literal, Set, Tuple, Union
 
 from .constants import SUPPORTED_ITEM_TYPES
 
@@ -82,3 +82,18 @@ def cleanup_string(s: str) -> str:
     """
 
     return s.strip()
+
+
+def heap_sort(size: int, items: List[SUPPORTED_ITEM_TYPES], order: Union[Literal['ASC'], Literal['DESC']]) -> None:
+    frequencies_and_indices = {}
+    for index, item in enumerate(items):
+        data = frequencies_and_indices.get(item, [0, []])
+        data[1].append(index)
+        data[0] += 1
+        frequencies_and_indices[item] = data
+
+    return sorted(
+        frequencies_and_indices.items(),
+        key=lambda x: x[1][0],
+        reverse=(order == 'DESC')
+    )[:size]
