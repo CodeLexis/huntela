@@ -3,13 +3,11 @@
 
 ```python
 >>> import huntela
->>> huntela.simple_search("app", ["app", "apple", "hello", "world"])
+>>> huntela.simple_search(term='app', items=['app', 'apple', 'hello', 'world'])
 [
     {'confidence': 1, 'index': 0, 'value': 'app'},
     {'confidence': 0.6, 'index': 1, 'value': 'apple'}
 ]
->>> huntela.binary_search(term='a', items=['a', 'b', 'c'])
-{'confidence': 1, 'index': 0, 'value': 'a'}
 >>> huntela.binary_search(term='a', items=['a', 'b', 'c'])
 {'confidence': 1, 'index': 0, 'value': 'a'}
 >>> huntela.search_for_least_frequent_items(size=1, ['a', 'b', 'a', 'e', 'a', 'e'])
