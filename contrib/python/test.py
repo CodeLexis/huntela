@@ -59,7 +59,6 @@ class SimpleSearchTest(unittest.TestCase):
 class LeastFrequentElementsSearchTest(unittest.TestCase):
     def test_one(self):
         results = search_for_least_frequent_items(1, [1, 2, 1, 5, 1, 5])
-        print(results)
         self.assertEqual(len(results), 1)
 
     def test_two(self):
