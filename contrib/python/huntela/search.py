@@ -1,11 +1,11 @@
-from collections import Counter
 from typing import List, Optional
 
 from .constants import SUPPORTED_ITEM_TYPES
 from .models import Result
-from .utils import cleanup_string, default_checker, heap_sort
+from .utils import cleanup_string, default_checker, heap_sort, log_performance
 
 
+@log_performance
 def binary_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES]) -> Optional[Result]:
     """
     Performs a binary search on a list of integers to find a target value.
@@ -38,6 +38,7 @@ def binary_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES])
     return None
 
 
+@log_performance
 def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES]) -> List[Result]:
     """
     Searches a list of items for a given search term.
@@ -45,8 +46,8 @@ def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES])
     Examples:
         >>> huntela.simple_search("app", ["app", "apple", "hello", "world"])
         [
-            {{'confidence': 1, 'index': 0, 'value': 'app'}},
-            {{'confidence': 0.6, 'index': 1, 'value': 'apple'}}
+            {'confidence': 1, 'index': 0, 'value': 'app'},
+            {'confidence': 0.6, 'index': 1, 'value': 'apple'}
         ]
 
     Args:
@@ -74,6 +75,7 @@ def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES])
     return results
 
 
+@log_performance
 def search_for_least_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES]):
     """
     Finds the k least frequent item(s) in a list.
@@ -87,12 +89,13 @@ def search_for_least_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES]
     """
 
     results = []
-    for item, (frequency, indices) in heap_sort(size, items, 'ASC'):
+    for item, (_, indices) in heap_sort(size, items, 'ASC'):
         results.append(Result(confidence=1, value=item, index=indices))
         
     return results
 
 
+@log_performance
 def search_for_most_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES]):
     """
     Finds the k most frequent item(s) in a list.
@@ -106,11 +109,12 @@ def search_for_most_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES])
     """
 
     results = []
-    for item, (frequency, indices) in heap_sort(size, items, 'DESC'):
+    for item, (_, indices) in heap_sort(size, items, 'DESC'):
         results.append(Result(confidence=1, value=item, index=indices))
         
     return results
 
 
+@log_performance
 def search_csv_file(filename: str, column: str, value: str):
     raise NotImplementedError

@@ -1,6 +1,10 @@
 from collections import Counter
-import itertools
+from functools import wraps
+from psutil import Process
+from time import time
 from typing import Dict, List, Literal, Set, Tuple, Union
+import itertools
+import logging
 
 from .constants import SUPPORTED_ITEM_TYPES
 
@@ -97,3 +101,18 @@ def heap_sort(size: int, items: List[SUPPORTED_ITEM_TYPES], order: Union[Literal
         key=lambda x: x[1][0],
         reverse=(order == 'DESC')
     )[:size]
+
+
+def log_performance(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start_time = time()
+        process = Process()
+        memory_before = process.memory_info().rss / 1024 / 1024
+        result = func(*args, **kwargs)
+        end_time = time()
+        memory_after = process.memory_info().rss / 1024 / 1024
+        logging.debug(f"Function {func.__name__} took {end_time - start_time:.4f} seconds and consumed {memory_after - memory_before:.4f} MB of memory.")
+        return result
+
+    return wrapper
