@@ -10,6 +10,8 @@
 ]
 >>> huntela.binary_search(term='a', items=['a', 'b', 'c'])
 {'confidence': 1, 'index': 0, 'value': 'a'}
+>>> huntela.binary_search(term='a', items=['a', 'b', 'c'])
+{'confidence': 1, 'index': 0, 'value': 'a'}
 ```
 
 With a variety of algorithms to choose from, finding what you're looking for has never been easier.

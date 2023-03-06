@@ -20,6 +20,7 @@ setup(
     author="Tomisin Abiodun",
     author_email="decave.12357@gmail.com",
     description=DESCRIPTION,
+    url='https://github.com/CodeLexis/huntela',
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     packages=find_packages(),
