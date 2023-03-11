@@ -74,10 +74,10 @@ def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES],
         TypeError: If the list of items is empty.
 
     Examples:
-        >>> simple_search("app", ["app", "apple", "hello", "world"])
+        >>> simple_search("app", ["app", "apps", "hello", "world"])
         [
             {'confidence': 1, 'index': 0, 'value': 'app'},
-            {'confidence': 0.6, 'index': 1, 'value': 'apple'}
+            {'confidence': 0.8, 'index': 1, 'value': 'apps'}
         ]
         >>> simple_search(
             term='Alex',
