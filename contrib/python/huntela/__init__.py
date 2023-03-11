@@ -1,6 +1,4 @@
-"""Search of items easily in Python
-
-The module contains the following functions:
+"""Huntela contains several utility search functions including:
 
 - `binary_search(term, items, key = None)` - Result: A Result object representing the search result, or None if it is not found.
 - `fuzzy_search(term, items, key = None)` - List[Result]: A list of Result objects representing the search results.

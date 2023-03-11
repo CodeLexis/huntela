@@ -1,8 +1,8 @@
-This site contains the project documentation for the
-`huntela` project that makes it easier to find things in Python.
+**Huntela** is a Python module that offers a range of utility search functions to
+help users quickly and easily find what they are looking. With its intuitive
+interface and functions, Huntela provides users with rich and relevant
+search results, making it a must-have tool for any Python developer.
 
-Quickly find what you're looking for depending on
-your use case by looking at the different pages.
 
 ## Project Overview
 
