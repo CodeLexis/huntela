@@ -15,14 +15,14 @@ def binary_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES],
         items (List[SUPPORTED_ITEM_TYPES]): A list of items to search through.
         key (SUPPORTED_KEY_TYPES, optional): A key to extract a comparable value from each item in the list.
                                               Defaults to None.
-                                              
+
     Returns:
         Optional[Result, None]: A Result object that contains the search result.
                                 Returns None if the target value is not found.
-        
+
     Raises:
         TypeError: If the list of items is empty or if the target value is not comparable.
-    
+
     Examples:
         >>> binary_search(term='a', items=['a', 'b', 'c'])
         {'confidence': 1, 'index': 0, 'value': 'a'}
@@ -56,7 +56,7 @@ def binary_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES],
 
 
 @log_performance
-def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES], key: SUPPORTED_KEY_TYPES=None) -> List[Result]:
+def fuzzy_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES], key: SUPPORTED_KEY_TYPES=None) -> List[Result]:
     """
     Searches a list of items for a given search term and returns a list of matching results.
 
@@ -74,12 +74,12 @@ def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES],
         TypeError: If the list of items is empty.
 
     Examples:
-        >>> simple_search("app", ["app", "apps", "hello", "world"])
+        >>> fuzzy_search("app", ["app", "apps", "hello", "world"])
         [
             {'confidence': 1, 'index': 0, 'value': 'app'},
             {'confidence': 0.8, 'index': 1, 'value': 'apps'}
         ]
-        >>> simple_search(
+        >>> fuzzy_search(
             term='Alex',
             items=[{'name': 'Alex'}, {'name': 'Mike'}, {'name': 'John'}],
             key='name'

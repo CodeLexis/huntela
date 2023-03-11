@@ -4,7 +4,7 @@
 ```python
 >>> import huntela
 >>>
->>> huntela.simple_search(term='app', items=['app', 'paper', 'hello', 'world'])
+>>> huntela.fuzzy_search(term='app', items=['app', 'paper', 'hello', 'world'])
 [
     {'confidence': 1, 'index': 0, 'value': 'app'},
     {'confidence': 0.6, 'index': 1, 'value': 'paper'}

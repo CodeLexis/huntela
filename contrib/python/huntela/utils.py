@@ -114,14 +114,22 @@ def heap_sort(size: int, items: List[SUPPORTED_ITEM_TYPES], order: Union[Literal
 def log_performance(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        start_time = time()
         process = Process()
-        memory_before = process.memory_info().rss / 1024 / 1024
+        
+        start_time = time()
+        start_mem = process.memory_info().rss
+        
         result = func(*args, **kwargs)
+        
         end_time = time()
-        memory_after = process.memory_info().rss / 1024 / 1024
-        logging.debug(f"Function {func.__name__} took {end_time - start_time:.4f} seconds and consumed {memory_after - memory_before:.4f} MB of memory.")
+        end_mem = process.memory_info().rss
+        
+        elapsed_time = end_time - start_time
+        consumed_mem = end_mem - start_mem
+        
+        logging.debug(f"{func.__name__} took {elapsed_time:.6f} seconds and consumed {consumed_mem / 1024:.6f} KB of memory.")
         return result
+
 
     return wrapper
 

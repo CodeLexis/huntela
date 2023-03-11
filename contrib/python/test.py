@@ -4,7 +4,7 @@ from huntela import (
     binary_search,
     search_for_least_frequent_items,
     search_for_most_frequent_items,
-    simple_search
+    fuzzy_search
 )
 
 
@@ -54,32 +54,32 @@ class BinarySearchTest(unittest.TestCase):
         self.assertIsNone(exception, 'Missing `key` does not throw')
 
 
-class SimpleSearchTest(unittest.TestCase):
+class FuzzySearchTest(unittest.TestCase):
     def test_missing_term(self):
-        results = simple_search(term='a', items=[])
+        results = fuzzy_search(term='a', items=[])
         self.assertEqual(len(results), 0, 'Missing term does not return empty results')
 
     def test_string_search(self):
-        results = simple_search(term='a', items=['a', 'b', 'c'])
+        results = fuzzy_search(term='a', items=['a', 'b', 'c'])
         self.assertEqual(len(results), 1, 'Search does not return exactly one matching result for single character strings')
 
     def test_integer_search(self):
-        results = simple_search(term=2, items=[1, 2, 3])
+        results = fuzzy_search(term=2, items=[1, 2, 3])
         self.assertEqual(len(results), 1, 'Search does not return exactly one matching result for integers')
 
     def test_string_search_fuzzy(self):
-        results = simple_search(term='apple', items=['pap', 'app', 'le', 'applet'])
+        results = fuzzy_search(term='apple', items=['pap', 'app', 'le', 'applet'])
         self.assertEqual(len(results), 3, 'Search does not return exactly one matching result for multi-character strings')
         self.assertEqual(results[0]['confidence'], 0.6, 'Search did not return the expected confidence rating')
         self.assertEqual(results[1]['confidence'], 0.6, 'Search did not return the expected confidence rating')
         self.assertEqual(results[2]['confidence'], 0.8, 'Search did not return the expected confidence rating')
 
     def test_result_structure(self):
-        results = simple_search(term='a', items=['a', 'b', 'c'])
+        results = fuzzy_search(term='a', items=['a', 'b', 'c'])
         self.assertIsInstance(results[0], dict)
 
     def test_result_content(self):
-        results = simple_search(term='a', items=['a', 'b', 'c'])
+        results = fuzzy_search(term='a', items=['a', 'b', 'c'])
         self.assertEqual(results[0]['confidence'], 1)
         self.assertEqual(results[0]['index'], 0)
         self.assertEqual(results[0]['value'], 'a')
@@ -92,7 +92,7 @@ class SimpleSearchTest(unittest.TestCase):
         exception = None
 
         try:
-            simple_search(
+            fuzzy_search(
                 term='Ade',
                 items=[{'name': 'Ade'}, {'name': 'Michael'}, {'name': 'John'}]
             )
@@ -105,7 +105,7 @@ class SimpleSearchTest(unittest.TestCase):
         exception = None
 
         try:
-            result = simple_search(
+            result = fuzzy_search(
                 term='Ade',
                 items=[{'name': 'Ade'}, {'name': 'Michael'}, {'name': 'John'}],
                 key='name'
