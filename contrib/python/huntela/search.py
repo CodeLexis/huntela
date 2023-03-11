@@ -1,12 +1,12 @@
 from typing import List, Optional
 
-from .constants import SUPPORTED_ITEM_TYPES
+from .constants import SUPPORTED_KEY_TYPES, SUPPORTED_ITEM_TYPES
 from .models import Result
 from .utils import cleanup_string, default_checker, heap_sort, log_performance
 
 
 @log_performance
-def binary_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES]) -> Optional[Result]:
+def binary_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES], key: SUPPORTED_KEY_TYPES=None) -> Optional[Result]:
     """
     Performs a binary search on a list of integers to find a target value.
 
@@ -24,13 +24,21 @@ def binary_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES])
         The index of the target value in the list, or None if it is not found.
     """
 
+    _validate_input(term, items, key)
+
     left, right = 0, len(items) - 1
 
     while left <= right:
         mid = (left + right) // 2
-        if items[mid] == term:
-            return Result(confidence=1, index=mid, value=term)
-        elif items[mid] > term:
+
+        item = items[mid]
+
+        if type(item) is dict:
+            item = item[key]
+
+        if item == term:
+            return Result(confidence=1, index=mid, value=item)
+        elif item > term:
             right = mid - 1
         else:
             left = mid + 1
@@ -39,7 +47,7 @@ def binary_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES])
 
 
 @log_performance
-def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES]) -> List[Result]:
+def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES], key: SUPPORTED_KEY_TYPES=None) -> List[Result]:
     """
     Searches a list of items for a given search term.
 
@@ -57,6 +65,8 @@ def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES])
     Returns:
         {List[Result]}: A list of Result objects representing the search results.
     """
+
+    _validate_input(term, items, key)
 
     results = []
 
@@ -118,3 +128,12 @@ def search_for_most_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES])
 @log_performance
 def search_csv_file(filename: str, column: str, value: str):
     raise NotImplementedError
+
+
+def _validate_input(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES], key):
+    if len(items) > 0 and type(items[0]) is dict and key is None:
+        raise ValueError(
+            "A `key` must be supplied if the `items` is a list of dictionaries."
+        )
+
+    return

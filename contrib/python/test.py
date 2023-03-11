@@ -25,6 +25,34 @@ class BinarySearchTest(unittest.TestCase):
         self.assertEqual(result['index'], 0)
         self.assertEqual(result['value'], 'a')
 
+    def test_dictionary_search_without_key_raises_exception(self):
+        exception = None
+
+        try:
+            binary_search(
+                term='name',
+                items=[{'name': 'Ade'}, {'name': 'Michael'}, {'name': 'John'}]
+            )
+        except ValueError as e:
+            exception = e
+
+        self.assertIsNotNone(exception, 'Missing `key` does not throw')
+
+    def test_dictionary_search_with_key(self):
+        exception = None
+
+        try:
+            result = binary_search(
+                term='Ade',
+                items=[{'name': 'Ade'}, {'name': 'Michael'}, {'name': 'John'}],
+                key='name'
+            )
+        except ValueError as e:
+            exception = e
+    
+        self.assertTrue(result['value'], 'Ade')
+        self.assertIsNone(exception, 'Missing `key` does not throw')
+
 
 class SimpleSearchTest(unittest.TestCase):
     def test_missing_term(self):
