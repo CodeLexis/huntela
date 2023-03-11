@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from .constants import SUPPORTED_KEY_TYPES, SUPPORTED_ITEM_TYPES
 from .models import Result
-from .utils import cleanup_string, default_checker, heap_sort, log_performance
+from .utils import get_comparable_from_item, validate_input, cleanup_string, default_checker, heap_sort, log_performance
 
 
 @log_performance
@@ -24,17 +24,14 @@ def binary_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES],
         The index of the target value in the list, or None if it is not found.
     """
 
-    _validate_input(term, items, key)
+    validate_input(items, key)
 
     left, right = 0, len(items) - 1
 
     while left <= right:
         mid = (left + right) // 2
 
-        item = items[mid]
-
-        if type(item) is dict:
-            item = item[key]
+        item = get_comparable_from_item(items[mid], key)
 
         if item == term:
             return Result(confidence=1, index=mid, value=item)
@@ -66,7 +63,7 @@ def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES],
         {List[Result]}: A list of Result objects representing the search results.
     """
 
-    _validate_input(term, items, key)
+    validate_input(items, key)
 
     results = []
 
@@ -75,6 +72,8 @@ def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES],
 
         if type(item) is str:
             item = cleanup_string(item)
+
+        item = get_comparable_from_item(item, key)
 
         match = default_checker(item, term)
         if match[0]:
@@ -86,7 +85,7 @@ def simple_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES],
 
 
 @log_performance
-def search_for_least_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES]):
+def search_for_least_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES], key: SUPPORTED_KEY_TYPES=None):
     """
     Finds the k least frequent item(s) in a list.
 
@@ -98,15 +97,17 @@ def search_for_least_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES]
         A list of the least frequent item(s).
     """
 
+    validate_input(items, key)
+
     results = []
-    for item, (_, indices) in heap_sort(size, items, 'ASC'):
+    for item, (_, indices) in heap_sort(size, items, 'ASC', key):
         results.append(Result(confidence=1, value=item, index=indices))
         
     return results
 
 
 @log_performance
-def search_for_most_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES]):
+def search_for_most_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES], key: SUPPORTED_KEY_TYPES=None):
     """
     Finds the k most frequent item(s) in a list.
 
@@ -118,8 +119,10 @@ def search_for_most_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES])
         A list of the most frequent item(s).
     """
 
+    validate_input(items, key)
+
     results = []
-    for item, (_, indices) in heap_sort(size, items, 'DESC'):
+    for item, (_, indices) in heap_sort(size, items, 'DESC', key):
         results.append(Result(confidence=1, value=item, index=indices))
         
     return results
@@ -128,12 +131,3 @@ def search_for_most_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES])
 @log_performance
 def search_csv_file(filename: str, column: str, value: str):
     raise NotImplementedError
-
-
-def _validate_input(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES], key):
-    if len(items) > 0 and type(items[0]) is dict and key is None:
-        raise ValueError(
-            "A `key` must be supplied if the `items` is a list of dictionaries."
-        )
-
-    return

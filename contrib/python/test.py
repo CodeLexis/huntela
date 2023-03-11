@@ -30,7 +30,7 @@ class BinarySearchTest(unittest.TestCase):
 
         try:
             binary_search(
-                term='name',
+                term='Ade',
                 items=[{'name': 'Ade'}, {'name': 'Michael'}, {'name': 'John'}]
             )
         except ValueError as e:
@@ -88,6 +88,34 @@ class SimpleSearchTest(unittest.TestCase):
         self.assertNotEqual(results[0]['index'], 1)
         self.assertNotEqual(results[0]['value'], 'b')
 
+    def test_dictionary_search_without_key_raises_exception(self):
+        exception = None
+
+        try:
+            simple_search(
+                term='Ade',
+                items=[{'name': 'Ade'}, {'name': 'Michael'}, {'name': 'John'}]
+            )
+        except ValueError as e:
+            exception = e
+
+        self.assertIsNotNone(exception, 'Missing `key` does not throw')
+
+    def test_dictionary_search_with_key(self):
+        exception = None
+
+        try:
+            result = simple_search(
+                term='Ade',
+                items=[{'name': 'Ade'}, {'name': 'Michael'}, {'name': 'John'}],
+                key='name'
+            )
+        except ValueError as e:
+            exception = e
+    
+        self.assertIsNone(exception, 'Missing `key` does not throw')
+        self.assertEqual(result[0]['value'], 'Ade')
+
 
 class LeastFrequentElementsSearchTest(unittest.TestCase):
     def test_one(self):
@@ -109,6 +137,34 @@ class LeastFrequentElementsSearchTest(unittest.TestCase):
 
         self.assertEqual(results[1]['value'], 'e')
         self.assertEqual(results[1]['index'], [3, 5])
+
+    def test_dictionary_search_without_key_raises_exception(self):
+        exception = None
+
+        try:
+            search_for_least_frequent_items(
+                size=1,
+                items=[{'name': 'Ade'}, {'name': 'Ade'}, {'name': 'Michael'}]
+            )
+        except ValueError as e:
+            exception = e
+
+        self.assertIsNotNone(exception, 'Missing `key` does not throw')
+
+    def test_dictionary_search_with_key(self):
+        exception = None
+
+        try:
+            result = search_for_least_frequent_items(
+                size=1,
+                items=[{'name': 'Ade'}, {'name': 'Ade'}, {'name': 'Michael'}],
+                key='name'
+            )
+        except ValueError as e:
+            exception = e
+    
+        self.assertIsNone(exception, 'Missing `key` does not throw')
+        self.assertEqual(result[0]['value'], 'Michael')
 
 
 class MostFrequentElementsSearchTest(unittest.TestCase):
@@ -132,6 +188,35 @@ class MostFrequentElementsSearchTest(unittest.TestCase):
         self.assertEqual(results[0]['index'], [0, 2, 4])
         self.assertEqual(results[1]['value'], 'e')
         self.assertEqual(results[1]['index'], [3, 5])
+
+    def test_dictionary_search_without_key_raises_exception(self):
+        exception = None
+
+        try:
+            search_for_most_frequent_items(
+                1,
+                items=[{'name': 'Ade'}, {'name': 'Michael'}, {'name': 'John'}],
+            )
+        except ValueError as e:
+            exception = e
+
+        self.assertIsNotNone(exception, 'Missing `key` does not throw')
+
+    def test_dictionary_search_with_key(self):
+        exception = None
+
+        try:
+            result = search_for_most_frequent_items(
+                size=1,
+                items=[{'name': 'Ade'}, {'name': 'Ade'}, {'name': 'Michael'}, {'name': 'John'}],
+                key='name'
+            )
+        except ValueError as e:
+            exception = e
+
+        self.assertIsNone(exception, 'Missing `key` does not throw')
+        self.assertEqual(result[0]['value'], 'Ade')
+        self.assertEqual(result[0]['index'], [0, 1])
 
 
 if __name__ == '__main__':

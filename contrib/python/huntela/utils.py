@@ -6,7 +6,7 @@ from typing import Dict, List, Literal, Set, Tuple, Union
 import itertools
 import logging
 
-from .constants import SUPPORTED_ITEM_TYPES
+from .constants import SUPPORTED_ITEM_TYPES, SUPPORTED_KEY_TYPES
 
 
 def default_checker(item_1: SUPPORTED_ITEM_TYPES, item_2: SUPPORTED_ITEM_TYPES) -> Tuple[bool, Union[float, int]]:
@@ -88,9 +88,17 @@ def cleanup_string(s: str) -> str:
     return s.strip()
 
 
-def heap_sort(size: int, items: List[SUPPORTED_ITEM_TYPES], order: Union[Literal['ASC'], Literal['DESC']]) -> None:
+def get_comparable_from_item(item: SUPPORTED_ITEM_TYPES, key: SUPPORTED_KEY_TYPES):
+    if type(item) is dict:
+        item = item[key]
+
+    return item
+
+
+def heap_sort(size: int, items: List[SUPPORTED_ITEM_TYPES], order: Union[Literal['ASC'], Literal['DESC']], key: SUPPORTED_KEY_TYPES = None) -> None:
     frequencies_and_indices = {}
     for index, item in enumerate(items):
+        item = get_comparable_from_item(item, key)
         data = frequencies_and_indices.get(item, [0, []])
         data[1].append(index)
         data[0] += 1
@@ -116,3 +124,12 @@ def log_performance(func):
         return result
 
     return wrapper
+
+
+def validate_input(items: List[SUPPORTED_ITEM_TYPES], key):
+    if len(items) > 0 and type(items[0]) is dict and key is None:
+        raise ValueError(
+            "A `key` must be supplied if the `items` is a list of dictionaries."
+        )
+
+    return
