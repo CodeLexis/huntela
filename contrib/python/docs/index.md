@@ -1,4 +1,4 @@
-**Huntela** is a Python module that offers a range of utility search functions to
+**Huntela** is a Python module that offers a range of utility search functions which
 help users quickly and easily find what they are looking. With its intuitive
 interface and functions, Huntela provides users with rich and relevant
 search results, making it a must-have tool for any Python developer.

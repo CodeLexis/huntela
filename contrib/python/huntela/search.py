@@ -121,7 +121,7 @@ def search_for_least_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES]
     Returns:
         results (List[Result]): A list of the least frequent item(s), represented as a Result object containing the item, its index in the original list, and a confidence score of 1.
 
-    Example:
+    Examples:
         >>> items = [1, 2, 3, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 7]
         >>> size = 2
         >>> search_for_least_frequent_items(size, items)
