@@ -75,7 +75,7 @@ Each search result is a `dict` which contains the following item:
 
 ### Methods
 
-1. `fuzzy_search(term, items, key=None) -> List[Result]`: Searches a list of items for a given search term and returns a list of results which exactly or ***closely*** match the search term.
+`fuzzy_search(term, items, key=None) -> List[Result]`: Searches a list of items for a given search term and returns a list of results which exactly or ***closely*** match the search term.
 
 ```python
 >>> huntela.fuzzy_search(term='app', items=['app', 'paper', 'hello', 'world'])
@@ -85,8 +85,8 @@ Each search result is a `dict` which contains the following item:
 ]
 ```
 
-2. `binary_search`
+`binary_search`
 
-3. `search_for_least_frequent_items`
+`search_for_least_frequent_items`
 
-4. `search_for_most_frequent_items`
+`search_for_most_frequent_items`
