@@ -1,23 +1,23 @@
 # Huntela
-**Huntela** makes searching in Python very simple.
+**Huntela** is a savvy search module that's an alternative to the default `filter` method. It offers a range of powerful search functions, including fuzzy search, binary search, and searches for least/most frequent items in a list.
 
 ```python
 >>> import huntela
->>>
+>>> 
 >>> huntela.fuzzy_search(term='app', items=['app', 'paper', 'hello', 'world'])
 [
     {'confidence': 1, 'index': 0, 'value': 'app'},
     {'confidence': 0.6, 'index': 1, 'value': 'paper'}
 ]
->>>
+>>> 
 >>> huntela.binary_search(term='a', items=['a', 'b', 'c'])
 {'confidence': 1, 'index': 0, 'value': 'a'}
->>>
+>>> 
 >>> huntela.search_for_least_frequent_items(size=1, ['a', 'b', 'a', 'e', 'a', 'e'])
 [
     {'confidence': 1, 'index': [1], 'value': 'b'}
 ]
->>>
+>>> 
 >>> huntela.search_for_most_frequent_items(size=2, ['a', 'b', 'a', 'e', 'a', 'e'])
 [
     {'confidence': 1, 'value': 'a', 'index': [0, 2, 4]},
@@ -42,3 +42,51 @@ Huntela is available on PyPi and it can be installed using `pip`
 ```bash
 python -m pip install huntela
 ```
+
+## Reference
+
+### Supported Types
+
+#### Term
+
+The term being searched for could be one of the following supported types:
+
+1. `int`
+2. `float`
+3. `str`
+4. `dict[str, Any]`
+
+#### Items
+
+The items parameter could then be a iterable of the supported term types. That is,
+
+1. `List[int]`
+2. `List[float]`
+3. `List[str]`
+4. `List[Dict[str, str]]`
+
+#### Results
+
+Each search result is a `dict` which contains the following item:
+
+1. `confidence`: A number from `0.0` to `1.0` that indicates the degree of relevance of the search match.
+2. `value`: The specific item that matched the search criteria.
+3. `index`: The position, or a list of positions where the search term was found.
+
+### Methods
+
+1. `fuzzy_search(term, items, key=None) -> List[Result]`: Searches a list of items for a given search term and returns a list of results which exactly or ***closely*** match the search term.
+
+```python
+>>> huntela.fuzzy_search(term='app', items=['app', 'paper', 'hello', 'world'])
+[
+    {'confidence': 1, 'index': 0, 'value': 'app'},
+    {'confidence': 0.6, 'index': 1, 'value': 'paper'}
+]
+```
+
+2. `binary_search`
+
+3. `search_for_least_frequent_items`
+
+4. `search_for_most_frequent_items`

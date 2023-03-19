@@ -109,6 +109,16 @@ def fuzzy_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES], 
 
 
 @log_performance
+def natural_language_search(raw_input: str, items: List[SUPPORTED_KEY_TYPES], key: SUPPORTED_KEY_TYPES=None):
+    raise NotImplementedError
+
+
+@log_performance
+def regex_search(regex_pattern: str, items: List[SUPPORTED_KEY_TYPES], key: SUPPORTED_KEY_TYPES=None):
+    raise NotImplementedError
+
+
+@log_performance
 def search_for_least_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES], key: SUPPORTED_KEY_TYPES=None):
     """
     Finds the k least frequent item(s) in a list.
