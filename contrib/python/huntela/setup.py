@@ -8,7 +8,7 @@ readme_path = os.path.join(parent_dir, "README.md")
 with open(readme_path, "rt") as f:
     readme = f.read()
 
-VERSION = '0.0.16' 
+VERSION = '0.0.17' 
 DESCRIPTION = "Find what you're looking for in a flash with Huntela."
 LONG_DESCRIPTION = readme
 

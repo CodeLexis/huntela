@@ -8,7 +8,7 @@ from .utils import get_comparable_from_item, validate_input, cleanup_string, def
 @log_performance
 def binary_search(term: SUPPORTED_ITEM_TYPES, items: List[SUPPORTED_ITEM_TYPES], key: SUPPORTED_KEY_TYPES=None) -> Optional[Result]:
     """
-    Performs a binary search on a list of integers to find a target value.
+    Performs a binary search on a list to find a target value.
 
     Args:
         term (SUPPORTED_ITEM_TYPES): The value to search for.
@@ -134,7 +134,7 @@ def search_for_least_frequent_items(size: int, items: List[SUPPORTED_ITEM_TYPES]
     Examples:
         >>> items = [1, 2, 3, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 7]
         >>> size = 2
-        >>> search_for_least_frequent_items(size, items)
+        >>> search_for_least_frequent_items(2, [1, 2, 3, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 7])
         [
             {'confidence': 1, 'index': [0], 'value': 1},
             {'confidence': 1, 'index': [2, 3], 'value': 3}

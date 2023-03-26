@@ -45,6 +45,13 @@ python -m pip install huntela
 
 ## Reference
 
+### Parameters
+
+Each of the search methods take in three (3) parameters.
+1. `term`: The term being searched for.
+2. `items`: The items parameter could then be a iterable of the supported term types.
+3. `key` (Optional): Only to be specified if the `term` is a `dict`. In which case, the `key` will be used to pick the corresponding values from the list of `items`.
+
 ### Supported Types
 
 #### Term
@@ -85,8 +92,33 @@ Each search result is a `dict` which contains the following item:
 ]
 ```
 
-`binary_search`
+`binary_search(term, items, key=None) -> List[Result]`: Performs a binary search on a list to find a target value.
 
-`search_for_least_frequent_items`
+```python
+>>> huntela.binary_search(
+    term='Alex',
+    items=[{'name': 'Alex'}, {'name': 'Mike'}, {'name': 'John'}],
+    key='name'
+)
+{'confidence': 1, 'index': 0, 'value': 'Ade'}
+```
 
-`search_for_most_frequent_items`
+`search_for_least_frequent_items`: Finds the k least frequent item(s) in a list.
+
+```python
+>>> search_for_least_frequent_items(size, items)
+[
+    {'confidence': 1, 'index': [0], 'value': 1},
+    {'confidence': 1, 'index': [2, 3], 'value': 3}
+]
+```
+
+`search_for_most_frequent_items`: Finds the k most frequent item(s) in a list.
+
+```python
+>>> search_for_most_frequent_items(2, [1, 2, 2, 3, 3, 3])
+[
+    {'confidence': 1, 'index': [3, 4, 5], 'value': 3},
+    {'confidence': 1, 'index': [1, 2], 'value': 2}
+]
+```
